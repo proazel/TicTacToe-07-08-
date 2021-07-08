@@ -12,9 +12,9 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-       function Square(props) {
+       function Square(){
             return (
-                <button className="square" onClick={props.onClick}>
+                <button className="square" onClick={()=>props.onClick}>
                     {props.value}
                 </button>
             );
@@ -24,14 +24,14 @@
             constructor(props) {
                 super(props);
                 this.state = {
-                    squares: Array(9).fill(null),
-                    xIsNext: true,
+                    squares: Array(9).fill(data),
+                    xIsNext: false,
                 };
             }
 
-            handleClick(i) {
-                const squares = this.state.squares.slice();
-                if (calculateWinner(squares) || squares[i]) {
+            handleClick = () => {
+                const squares = this.state.squares.splice();
+                if (calculateWinner(squares) || squares[i].length) {
                     return;
                 }
                 squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -41,11 +41,11 @@
                 });
             }
 
-            renderSquare(i) {
+            renderSquare = () => {
                 return (
                     <Square
                         value={this.state.squares[i]}
-                        onClick={() => this.handleClick(i)}
+                        onClick={()=>this.handleClick(i)}
                     />
                 );
             }
